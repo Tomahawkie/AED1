@@ -1,0 +1,24 @@
+typedef struct Student{
+    char name[50];
+    int age;
+}estudante;
+estudante registrar_aluno(estudante a){
+    for(int i=0; i<5; i++){
+        fgets(a[i]->name, 50, stdin);
+        scanf("%d", &a[i].age);
+        getchar();
+    }
+    return estudante a;
+}
+estudante zerar_aluno(estudante a){
+    for(int i=0; i<5; i++){
+		a[i].name[0] = '\0';
+		a[i].age = 0;
+	}
+  return estudante a;
+}
+void imprimir(estudante a){
+    for (int i = 0; i < 5; i++) {
+        printf("Nome: %sIdade: %d\n", a[i].name, a[i].age);
+    }
+}
