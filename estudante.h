@@ -31,7 +31,7 @@ void imprimir(estudante a[], const char *filename){
     }
     fread(a, sizeof(estudante), 5, file);      
     for (int i = 0; i < 5; i++) {
-        printf("Nome: %sIdade: %d\n", a.name, a.age);    
+        printf("Nome: %sIdade: %d\n", a[i].name, a[i].age);    
     }
     fclose(file);
 }
