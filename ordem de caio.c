@@ -22,6 +22,7 @@ int* espelhar_vetor(int *v, int n){
 }
 int* fInsertion_Sort(int *pVetor, int n)
 {
+    n= 2*n;
     int vAux;
     int vTemp;
     int vTroca;
@@ -46,7 +47,7 @@ int* fInsertion_Sort(int *pVetor, int n)
 }
 void imprimir(int *v, int n){
     for (int i=0; i<(2*n); i++){
-        printf("%d\n", v[i]);
+        printf("%d ", v[i]);
     }
 }    
 int main(){
@@ -56,12 +57,10 @@ int main(){
     int *v;
     v = (int*)malloc(n*sizeof(int));
     for (int i=0; i<n; i++){
-        printf("digite os elemento do vetor");
+        printf("digite os elementos do vetor");
         scanf("%d", &v[i]);
     }
-    
     v = espelhar_vetor(v, n);
-    imprimir(v, n);
     v=fInsertion_Sort(v, n);
     imprimir(v, n);
     free(v);
