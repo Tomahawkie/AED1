@@ -11,17 +11,40 @@ Livro* push(Livro* lista, int* tam){
     scanf("%d[^\n]", lista->titulo);
     lista->posicao = indice;
     (*tam)++;
+    return lista
 }
-Livro* push_selection(Livro* lista, int* posicao, int* tam){
-    Livro*temp = malloc(*tam*sizeof(Livro));
+void push_selection(Livro* lista, int* posicao, int* tam){
+    Livro *temp, *novo = malloc(*tam*sizeof(Livro));
     temp = lista;
+
     if(*posicao > *tam){
         printf("posição invalida\n");
         free(temp);
         return
     }
+    novo = push(novo, tam);
+    novo->posicao = *posicao;
     while(temp->posicao < (*posicao)-1){
         temp->prox;
-    }temp->prox = push(lista, &tam);
-    return temp;
+    }
+    novo->prox = temp->prox;
+    temp->prox = novo;
+    temp = novo->prox;
+    while(temp!= NULL){
+        temp->posicao++;
+        temp->prox;
+    }
+
+    return novo;
+}
+void search(Livro* lista, char titulo[50]){
+    if(lista == NULL){
+        printf("Lista vazia!\n");
+        return
+    }
+    while(titulo[50] != lista->titulo){
+        lista->prox;
+    }
+    
+
 }
