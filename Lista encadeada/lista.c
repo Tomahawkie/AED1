@@ -13,7 +13,7 @@ Livro* push(Livro* lista, int* tam){
     (*tam)++;
     return lista
 }
-void push_selection(Livro* lista, int* posicao, int* tam){
+void push_selection(Livro** lista, int* posicao, int* tam){
     Livro *temp, *novo = malloc(*tam*sizeof(Livro));
     temp = lista;
 
@@ -25,7 +25,7 @@ void push_selection(Livro* lista, int* posicao, int* tam){
     novo = push(novo, tam);
     novo->posicao = *posicao;
     while(temp->posicao < (*posicao)-1){
-        temp->prox;
+        temp = temp->prox;
     }
     novo->prox = temp->prox;
     temp->prox = novo;
@@ -35,16 +35,45 @@ void push_selection(Livro* lista, int* posicao, int* tam){
         temp->prox;
     }
 
-    return novo;
 }
 void search(Livro* lista, char titulo[50]){
+    Livro* temp;
+    temp = lista
     if(lista == NULL){
         printf("Lista vazia!\n");
         return
     }
-    while(titulo[50] != lista->titulo){
-        lista->prox;
-    }
-    
-
+    while(temp->prox != NULL){
+        if(titulo == temp->titulo){
+            pritf("posicao : %d \n", temp->posicao);
+            return 
+        }
+        temp = temp->prox;
+    } 
+    prinf("titulo não encontrado");
+    return 
+}
+void remover(Livro** lista, int* posicao, int* tam){
+    if(lista==NULL){
+        printf("lista vazia\n");
+        return
+    }else if(*posicao > *tam){
+        printf("posicao não encotrada");
+        return
+    }else
+        Livro* temp = malloc(*tam*sizeof(Livro)), *anterior = malloc(*tam*sizeof(Livro));
+        temp = lista;
+        while(temp->prox != NULL){
+            if(temp->posicao == *posicao){
+                anterior->prox = temp->prox;
+                while(anterior->prox != NULL){
+                    anterior->prox->posicao--;
+                    anterior = anterior->prox;
+                }
+                free(temp);
+                return
+            }
+            anterior = temp;
+            temp = temp->prox;
+        }
 }
