@@ -11,8 +11,9 @@ Livro* push(Livro* lista, int* tam){
     scanf("%d[^\n]", lista->titulo);
     lista->posicao = indice;
     (*tam)++;
-    return lista
+    return lista;
 }
+
 void push_selection(Livro** lista, int* posicao, int* tam){
     Livro *temp, *novo = malloc(*tam*sizeof(Livro));
     temp = lista;
@@ -20,7 +21,7 @@ void push_selection(Livro** lista, int* posicao, int* tam){
     if(*posicao > *tam){
         printf("posição invalida\n");
         free(temp);
-        return
+        return;
     }
     novo = push(novo, tam);
     novo->posicao = *posicao;
@@ -38,30 +39,27 @@ void push_selection(Livro** lista, int* posicao, int* tam){
 }
 void search(Livro* lista, char titulo[50]){
     Livro* temp;
-    temp = lista
+    temp = lista;
     if(lista == NULL){
         printf("Lista vazia!\n");
-        return
+        return ;
     }
     while(temp->prox != NULL){
         if(titulo == temp->titulo){
             pritf("posicao : %d \n", temp->posicao);
-            return 
+            return ;
         }
         temp = temp->prox;
     } 
     prinf("titulo não encontrado");
-    return 
+    return ;
 }
 void remover(Livro** lista, int* posicao, int* tam){
+    Livro* temp , *anterior = malloc(*tam*sizeof(Livro));
     if(lista==NULL){
         printf("lista vazia\n");
-        return
-    }else if(*posicao > *tam){
-        printf("posicao não encotrada");
-        return
-    }else
-        Livro* temp = malloc(*tam*sizeof(Livro)), *anterior = malloc(*tam*sizeof(Livro));
+        return;
+    } 
         temp = lista;
         while(temp->prox != NULL){
             if(temp->posicao == *posicao){
@@ -71,9 +69,36 @@ void remover(Livro** lista, int* posicao, int* tam){
                     anterior = anterior->prox;
                 }
                 free(temp);
-                return
+                (*tam)--;
+                return;
             }
             anterior = temp;
             temp = temp->prox;
         }
+    printf("posicao nao encontrada\n");
+    return;
+}
+void remover_ultimo(Livro** lista, int* tam){
+    if(lista == NULL){
+        printf("Lista vazia\n");
+        return;
+    }
+    Livro* temp, *anterior;
+    temp = lista;
+    while(temp->prox != NULL){
+        anterior = temp;
+        temp = temp->prox;
+    }
+    anterior->prox = temp->prox;
+    (*tam)--;
+    free(temp);
+}
+void imprimir(Livro* lista){
+    Livro* temp;
+    temp = lista;
+    while (temp != NULL){
+        printf("%d : %s", temp->posicao, temp->titulo);
+        temp = temp->prox;    
+    }
+    return;
 }
