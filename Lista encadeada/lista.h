@@ -7,10 +7,11 @@ typedef struct livro{
     struct livro*prox;
 }Livro;
 
-void push(Livro* livro, int* tam);
-Livro* push_selection(Livro* livro, int position, int* tam);
-void pop(Livro* livro, int* tam);
-void search(Livro* livro, int* tam);
+Livro* push(Livro* livro, int* tam);
+void push_selection(Livro** livro, int* posicao, int* tam);
+void remover(Livro** livro, int* posicao, int* tam);
+void remover_ultimo(Livro** lista, int* tam);
+void search(Livro* livro, int* posicao);
 void imprimir(Livro* livro);
 
 
