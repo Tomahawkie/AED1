@@ -17,7 +17,7 @@ No* carregar_arquivo(FILE* arquivo){
         } 
     No* temp;
     while(fread(temp, sizeof(No), 1, file) == 1){
-        temp = malloc(sizeof(No));
+        temp = malloc(sizeof(No)); //fscanf testar;
         }
     fclose(file);
     return temp;
@@ -75,17 +75,19 @@ void adicionar(No** lista, Cabeca *cabeca){
         return ;
     }
     printf("Nome do Livro\n");
-    fgets(temp->titulo, 50, stdin);
+    scanf("%[^\n]", temp->titulo);
     printf("Nome do autor\n");
     fgets(temp->autor, 50, stdin);
-    if(lista == NULL){
-        *lista = temp;
+    if(aux == NULL){
+        aux = temp;
     }else {
         while(aux != NULL){
             aux = aux->prox;
         }
         aux->prox = temp;
     }
+        printf("aqui\n");
+
     adicionar_fila(&cabeca, temp);
     
 }//adiciona o livro na lista
