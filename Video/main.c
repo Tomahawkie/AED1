@@ -11,19 +11,17 @@ int main(){
     FILE* arquivo;
     No* lista =malloc(sizeof(No));
     Cabeca* cabeca=malloc(sizeof(Cabeca));
-    carregar_arquivo(arquivo, &cabeca);
+    cabeca->fila = carregar_arquivo(arquivo);
     int ordem = 0, opcao = 0;
     char inicio, fim;
+
     do{
         printf("digite 1 para adicionar\n2 para remover\n3 para imprimir\n4 para ordenar\n5 para remover um intervalo\n6 para sair\n");
         scanf("%d", &opcao);
         switch (opcao)
         {
         case 1:
-            while(lista != NULL){
-                lista =lista->prox;
-            }
-            lista = adicionar(lista, cabeca);
+            adicionar(&lista, cabeca);
             break;
         case 2:
             remover_livro(&lista, cabeca);
@@ -63,4 +61,3 @@ int main(){
     free(cabeca);
     return 0;
 }
-
