@@ -13,8 +13,8 @@ typedef struct lista{
     No* novo;
 }Cabeca;
 
-void carregar_arquivo(FILE* arquivo, Cabeca** cabeca);
-No* adicionar(No* lista, Cabeca *cabeca);
+No* carregar_arquivo(FILE* arquivo);
+void adicionar(No** lista, Cabeca *cabeca);
 void remover_livro(No** lista, Cabeca* cabeca);
 void imprimir(No* lista);
 No* ordenar(No* lista, int* ordem);
