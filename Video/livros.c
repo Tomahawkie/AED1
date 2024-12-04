@@ -4,9 +4,10 @@
 #include "livros.h"
 
 
-No* carregar_arquivo(FILE* arquivo, Cabeca** cabeca){
+No* carregar_arquivo(FILE* arquivo){
     FILE* file = arquivo;
-    file = fopen("arquivo.txt", "r");
+    No* fila;
+    file = fopen("arquivo.txt", "a");
     fclose(file);
     file = fopen("arquivo.txt", "r");
     if(file == NULL){
@@ -16,10 +17,10 @@ No* carregar_arquivo(FILE* arquivo, Cabeca** cabeca){
         } 
     No* temp;
     while(fread(temp, sizeof(No), 1, file) == 1){
-        cabeca = malloc(sizeof(No));
-        adicionar_fila(cabeca, temp);
+        temp = malloc(sizeof(No));
         }
     fclose(file);
+    return temp;
     } //abre o arquivo e inicia a fila
 
 No* ordenar(No* lista, int* ordem){
@@ -34,8 +35,8 @@ No* ordenar(No* lista, int* ordem){
         anterior = NULL;
         while(atual->prox != ptr){
             No* prox = atual->prox;
-            if ((ordem == 1 && strcmp(atual->titulo, prox->titulo) > 0) ||
-                (ordem == 2 && strcmp(atual->autor, prox->autor) < 0)){
+            if (((*ordem) == 1 && strcmp(atual->titulo, prox->titulo) > 0) ||
+                ((*ordem) == 2 && strcmp(atual->autor, prox->autor) < 0)){
                 atual->prox = prox->prox;
                 prox->prox = atual;
                 
@@ -67,18 +68,26 @@ void adicionar_fila(Cabeca** cabeca, No* temp){
         (*cabeca)->novo = temp;
 } // adiciona o livro na fila(idade)
 }
-No* adicionar(No* lista, Cabeca *cabeca){
-    No* temp = malloc(sizeof(No));
+void adicionar(No** lista, Cabeca *cabeca){
+    No* temp = malloc(sizeof(No)), *aux = *lista;
     if(temp == NULL){
         printf("Erro ao alocar memoria\n");
-        return 1;
+        return ;
     }
     printf("Nome do Livro\n");
-    scanf("%[^\n]", temp->titulo);
+    fgets(temp->titulo, 50, stdin);
     printf("Nome do autor\n");
-    scanf("%[^\n]", temp->autor);
-    adicionar_final(&cabeca, temp);
-    return temp;
+    fgets(temp->autor, 50, stdin);
+    if(lista == NULL){
+        *lista = temp;
+    }else {
+        while(aux != NULL){
+            aux = aux->prox;
+        }
+        aux->prox = temp;
+    }
+    adicionar_fila(&cabeca, temp);
+    
 }//adiciona o livro na lista
 
 void remover_fila(Cabeca** cabeca, No* temp){
@@ -101,9 +110,13 @@ void remover_fila(Cabeca** cabeca, No* temp){
 }//remove o livro da fila(idade)
 void remover_livro(No** lista, Cabeca* cabeca)
 {
+    if(*lista == NULL){
+        printf("lista vazia\n");
+        return;
+    }
     char titulo[50];
     printf("digite o titulo a ser removido\n");
-    scanf("%s", &titulo);
+    scanf("%s", titulo);
     No* temp, *anterior = NULL; 
     temp = *lista;
     while(temp->prox != NULL && temp->titulo != titulo){
@@ -120,17 +133,21 @@ void remover_livro(No** lista, Cabeca* cabeca)
 
 void imprimir(No* lista){
     No* temp = lista;
+    if(temp == NULL){
+        printf("lista vazia\n");
+        return;
+    }
     while(temp != NULL){
         printf("%s\n", temp->titulo);
         temp = temp->prox;
     }
 } // imprimir
 void remover_intervalo(No** lista, char* inicio, char* fim, Cabeca** cabeca){
-    No* temp = lista;
+    No* temp = *lista;
     while(temp != NULL){
         if(temp->titulo >= inicio && temp->titulo <= fim){
             No* aux = temp;
-            remover_fila(&cabeca, temp);
+            remover_fila(cabeca, temp);
             temp = temp->prox;
             free(aux);
         }else{
@@ -140,7 +157,8 @@ void remover_intervalo(No** lista, char* inicio, char* fim, Cabeca** cabeca){
 } // remove um intervalo
 
 void salvar_arquivo(Cabeca* cabeca, FILE* arquivo){
-    FILE *file = fopen(arquivo, "a");
+    FILE *file = arquivo;
+    file = fopen("arquivo.txt", "a");
     if(file == NULL){
         printf("Erro ao abrir o arquivo!\n");
         fclose(file);
