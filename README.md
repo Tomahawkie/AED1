@@ -13,5 +13,8 @@
 
 
 <h3 align="left">🚀 Como Executar</h3>  
-<p>Clone o repositório:<br>git clone https://github.com/Tomahawkie/AED1.git </p>
+<p>1-Clone o repositório:<br>git clone https://github.com/Tomahawkie/AED1.git </p>
+<p>2-Navegue até o diretório desejado:<br>cd AED1/Aula\ 3</p>
+<p>3-Compile o arquivo .c:<br>gcc exemplo.c -o exemplo</p>
+<p>4-Execute o programa:<br>./exemplo</p>
 
